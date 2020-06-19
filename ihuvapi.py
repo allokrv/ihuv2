@@ -17,6 +17,7 @@ class AppSettings:
     dl_format = "mp4"
     mode = "skip"
 
+    # applying settings from file
     def set_settings(self, single_snippet, playlist_snippet, lookup_channel, get_all, download, dl_format, mode):
         self.get_single_video_snippet = single_snippet
         self.get_playlist_video_snippet = playlist_snippet
@@ -77,10 +78,6 @@ def check_credentials():
     return ihuv_credentials.ready(ihuv_credentials)
 
 
-def memory_address(var):
-    return hex(id(var))
-
-
 def check_required_files():
     # check settings file
     rdy_settings = ihuv_settings.load_settings(ihuv_settings)
@@ -97,6 +94,7 @@ def check_required_files():
         return True
 
 
+# load keys from file
 def load_keys():
     with open("KEYS", "r") as kfile:
         _d = kfile.read()

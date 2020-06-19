@@ -21,12 +21,14 @@ def store_keys(at="", rt="", api=""):
         rt = rt
     if api == "":
         api = _api
+    # storing keys in file
     print("Refreshing KEYS file..")
     data = [api, at, rt]
     with open("KEYS", "w") as kfile:
         kfile.write("\n".join(data))
 
 
+# just to avoid some errors that will prolly never occur
 def create_dummy_keys_file():
     with open("KEYS", "w") as kfile:
         kfile.write("PUTyourAPIkeyHERE\n" +
@@ -43,6 +45,7 @@ class AppCredentials:
     creds = None
     scope = "https://www.googleapis.com/auth/youtube"
 
+    # set session keys
     def set_keys(self, access, refresh):
         if access == "LEAVEmeHERE" and refresh == "MEtooWEREgonnaBEreplaced":
             print("Wrong keys passed")
@@ -79,6 +82,7 @@ class AppCredentials:
             print("[SUCCESS] Credentials ready!")
             return True
 
+    # set session credentials for auth
     def set_credentials(self, credentials):
         self.credset = True
         print("Setting session-credentials..")
@@ -134,6 +138,7 @@ class AppCredentials:
             print("[SUCCESS] Authorization flow complete!")
             self.set_credentials(self, credentials)
 
+    # reading keys from file
     def get_key_files(self):
         if os.path.isfile("KEYS"):
             print("Loading Keys..")
@@ -168,6 +173,7 @@ class AppCredentials:
             create_dummy_keys_file()
             self.get_key_files(self)
 
+    # get new refreshToken
     def refresh_rt(self):
         print("Refreshing tokens..")
         authorization_url = "https://oauth2.googleapis.com/token"  # self.secret['auth_uri']

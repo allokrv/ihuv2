@@ -10,6 +10,7 @@ import requests
 
 def get_video_info(vId, pl=False):
     part = "snippet"
+    # request to api for snippet
     r = requests.get(f"https://www.googleapis.com/youtube/v3/videos?part={part}&id={vId}&key={ihuvapi.get_api_key()}")
     response = json.loads(r.content)
     if r.status_code != 200:
@@ -40,6 +41,7 @@ def get_video_info(vId, pl=False):
     return response
 
 
+# get uploads from channel ID
 def get_uploads(cId):
     part = "contentDetails"
     r = requests.get(f"https://www.googleapis.com/youtube/v3/channels?part={part}&id={cId}&key={ihuvapi.get_api_key()}")
@@ -54,6 +56,7 @@ def get_uploads(cId):
 
 def get_all_uploads(plId):
     part = "contentDetails"
+    # setting download command for youtube-dl
     if ihuvapi.ihuv_settings.dl_format == "mp4":
         dlo = f'youtube-dl -f mp4 -w -o "results/%(uploader)s/%(id)s - %(title)s.mp4" '
     elif ihuvapi.ihuv_settings.dl_format == "mp3":
@@ -63,6 +66,8 @@ def get_all_uploads(plId):
         return False
     APIKEY = ihuvapi.get_api_key()
     print("Trying to fetch playlist")
+    
+    # pageTokens make me use a weird loop
     r = requests.get(f"https://www.googleapis.com/youtube/v3/playlistItems" +
                      f"?part={part}" +
                      f"&maxResults=50" +
@@ -90,7 +95,8 @@ def get_all_uploads(plId):
         print("[FATAL] Something went wrong fetching the playlist")
         print(jsbeautifier.beautify(json.dumps(json.loads(r))))
         exit(1)
-
+    
+    # loop over playlist
     def run_pl(pageToken="00"):
         print(f"pageToken: {pageToken}")
         if pageToken == "00":
@@ -105,6 +111,7 @@ def get_all_uploads(plId):
 
         response = json.loads(_r.content)
 
+        # getting youtube object if rating is active
         youtube = None
         mode = ihuvapi.ihuv_settings.mode
         if mode != "skip":
@@ -118,6 +125,7 @@ def get_all_uploads(plId):
         for video in response['items']:
             vId = video['contentDetails']['videoId']
             get_video_info(vId, pl=True)
+            # rating activated ?
             if mode != "skip":
                 if mode == "like":
                     print("Liking..")
@@ -135,13 +143,16 @@ def get_all_uploads(plId):
                     print("[FATAL] Wrong parameter in settings.json > mode")
                     exit(1)
 
+                # execute api request
                 try:
                     request.execute()
                 except (Exception):
                     print("[ERROR] Error while rating Video!")
                     continue
 
+            # downloads defined in settings ?
             if ihuvapi.ihuv_settings.download:
+                # download depending on mode
                 if os.path.isfile("youtube-dl.exe") and os.path.isfile("ffmpeg.exe"):
                     print(f"Trying to download {video['contentDetails']['videoId']}..")
                     os.system(f'{dlo}"{vId}"')
@@ -163,7 +174,9 @@ def get_all_uploads(plId):
 
 def main():
     passed_arg = sys.argv[1]
+    # is id a video id ?
     if len(passed_arg) == 11:
+        # fetch video snippet
         vr = get_video_info(passed_arg)
         try:
             vr = vr['items'][0]
@@ -174,6 +187,7 @@ def main():
         if not vr:
             print("[FATAL] Error while getting Video")
             exit(1)
+        # go to channel lookup if defined
         if ihuvapi.ihuv_settings.lookup_channel_after_video:
             print(f"[SUCCESS] Channel: {vr['snippet']['channelTitle']} ({vr['snippet']['channelId']})")
             ur = get_uploads(vr['snippet']['channelId'])
@@ -183,6 +197,7 @@ def main():
             if ihuvapi.ihuv_settings.get_all_channel_uploads:
                 get_all_uploads(ur)
 
+    # is id a channel id ?
     elif len(passed_arg) == 24:
         vr = get_uploads(passed_arg)
         if not vr:
@@ -202,6 +217,7 @@ if __name__ == '__main__':
     if len(sys.argv) != 2:
         print("Expected 1 argument as string: YoutubeVideoID/YoutubeChannelID")
         exit(1)
+        # dev mode for literally 1 test lol
         ihuvapi.init(sys.argv[1], True)
     else:
         ihuvapi.init(sys.argv[1])
