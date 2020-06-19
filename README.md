@@ -33,7 +33,7 @@ It's rather simple you just run the Script with a Video-ID or a Channel-ID as ar
 
 Example: "`python ihuv2.py 6E5m_XtCX3c`" (from: https://www.youtube.com/watch?v=6E5m_XtCX3c)
 
-You're gonna be asked if you really wanna like/dislike the few thousand Videos you just put it
+You're gonna be asked if you really wanna like/dislike the few thousand Videos you just put in
 
 So even a messed up json should worst case lead to a crash and re-download
 
