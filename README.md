@@ -6,6 +6,15 @@ the script will guide you through how to get them when you need them.
 
 Download functionality has been added mp4 and mp3 formats are supported, enjoy
 
+## Usage
+It's rather simple you just run the Script with a Video-ID or a Channel-ID as argument
+
+Example: "`python ihuv2.py 6E5m_XtCX3c`" (from: https://www.youtube.com/watch?v=6E5m_XtCX3c)
+
+You're gonna be asked if you really wanna like/dislike the few thousand Videos you just put in
+
+So even a messed up json should worst case lead to a crash and re-download
+
 ## The Google Project
 All this Key and Secret jazz is gonna be available here: https://console.developers.google.com/
 
@@ -31,16 +40,6 @@ simply click enable here: https://console.developers.google.com/apis/library/you
 	"ratingmode":				    "skip", //rate the video(s) (or skip it)
 	"mode_comment":                             "mode can be like/dislike/skip"        }
 ```
-
-## Usage
-It's rather simple you just run the Script with a Video-ID or a Channel-ID as argument
-
-Example: "`python ihuv2.py 6E5m_XtCX3c`" (from: https://www.youtube.com/watch?v=6E5m_XtCX3c)
-
-You're gonna be asked if you really wanna like/dislike the few thousand Videos you just put in
-
-So even a messed up json should worst case lead to a crash and re-download
-
 
 
 ###### This is a small private project which may or may not be further maintained or outdated
