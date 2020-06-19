@@ -59,14 +59,14 @@ def get_all_uploads(plId):
     print("Trying to fetch playlist")
     r = requests.get(f"https://www.googleapis.com/youtube/v3/playlistItems" +
                      f"?part={part}" +
-                     f"&maxResults=9999" +
+                     f"&maxResults=50" +
                      f"&playlistId={plId}" +
                      f"&key={APIKEY}")
 
     vAmount = json.loads(r.content)['pageInfo']['totalResults']
 
     test = input(f"[YOUTUBE LIMITS RATINGS TO ~150 PER DAY!!!] Found {vAmount} videos in playlist.\n"
-                 f"Starting in rating-mode '{ihuvapi.ihuv_settings.mode}', continue? y/n/c(chance) ~")
+                 f"Starting in rating-mode '{ihuvapi.ihuv_settings.mode}', continue? y/n/c(change) ~")
     if test == "c":
         test = input("Like / Dislike / Skip ? ~")
         test = test.strip().lower()
@@ -86,15 +86,17 @@ def get_all_uploads(plId):
         exit(1)
 
     def run_pl(pageToken="00"):
-        if pageToken != "00":
+        print(f"pageToken: {pageToken}")
+        if pageToken == "00":
+            _r = r
+        else:
             _r = requests.get(f"https://www.googleapis.com/youtube/v3/playlistItems" +
                               f"?part={part}" +
-                              f"&maxResults=9999" +
+                              f"&maxResults=50" +
                               f"&playlistId={plId}" +
                               f"&pageToken={pageToken}" +
                               f"&key={APIKEY}")
-        else:
-            _r = r
+
 
         response = json.loads(_r.content)
 
@@ -135,14 +137,11 @@ def get_all_uploads(plId):
                     continue
                 print("success!\n")
 
-
         try:
-            if _r['nextPageToken']:
-                run_pl(response['nextPageToken'])
+            run_pl(json.loads(_r.content)['nextPageToken'])
         except Exception:
-            pass
+            return True
     run_pl("00")
-    return True
 
 
 def main():
