@@ -26,6 +26,7 @@ simply click enable here: https://console.developers.google.com/apis/library/you
 	"go to channel after single video":         true,   //after the video get the channel info
 	"get all uploads of channel": 		    true,   //after channel info get the uploads playlist
 	"download videos": 			    false,  //download videos while processing (takes some time)
+	"download format": 			    "mp4",  //download videos while processing (takes some time)
 	"ratingmode":				    "skip", //rate the video(s) (or skip it)
 	"mode_comment": "mode can be like/dislike/skip"        }
 ```
