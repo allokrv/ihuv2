@@ -29,7 +29,7 @@ simply click enable here: https://console.developers.google.com/apis/library/you
 	"download format": 			    "mp4",  //download videos while processing (takes some time)
 	"format_comment":                           "format can be mp4/mp3", 
 	"ratingmode":				    "skip", //rate the video(s) (or skip it)
-	"mode_comment": "mode can be like/dislike/skip"        }
+	"mode_comment":                             "mode can be like/dislike/skip"        }
 ```
 
 ## Usage
