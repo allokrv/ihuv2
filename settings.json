@@ -2,5 +2,6 @@
 	"get snippet of every video": 		false,
 	"go to channel after single video": true, 
 	"get all uploads of channel": 		true,
+	"download videos": 					false,
 	"ratingmode":						"skip",
 	"mode_comment": "mode can be like/dislike/skip"}

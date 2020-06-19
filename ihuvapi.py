@@ -13,13 +13,15 @@ class AppSettings:
     get_playlist_video_snippet = False
     lookup_channel_after_video = True
     get_all_channel_uploads = True
+    download = False
     mode = "skip"
 
-    def set_settings(self, single_snippet, playlist_snippet, lookup_channel, get_all, mode):
+    def set_settings(self, single_snippet, playlist_snippet, lookup_channel, get_all, download, mode):
         self.get_single_video_snippet = single_snippet
         self.get_playlist_video_snippet = playlist_snippet
         self.lookup_channel_after_video = lookup_channel
         self.get_all_channel_uploads = get_all
+        self.download = download
         self.mode = mode
 
     # print all class vars
@@ -47,6 +49,7 @@ class AppSettings:
                               _data['get snippet of every video'],
                               _data['go to channel after single video'],
                               _data['get all uploads of channel'],
+                              _data['download videos'],
                               _data['ratingmode'])
             return True
         else:

@@ -8,7 +8,6 @@ import jsbeautifier
 import ihuvapi
 import requests
 
-
 def get_video_info(vId, pl=False):
     part = "snippet"
     r = requests.get(f"https://www.googleapis.com/youtube/v3/videos?part={part}&id={vId}&key={ihuvapi.get_api_key()}")
@@ -55,6 +54,7 @@ def get_uploads(cId):
 
 def get_all_uploads(plId):
     part = "contentDetails"
+    dlo = 'youtube-dl -f mp4 -o "results/%(uploader)s/%(id)s - %(title)s.mp4" '
     APIKEY = ihuvapi.get_api_key()
     print("Trying to fetch playlist")
     r = requests.get(f"https://www.googleapis.com/youtube/v3/playlistItems" +
@@ -135,6 +135,18 @@ def get_all_uploads(plId):
                 except (Exception):
                     print("[ERROR] Error while rating Video!")
                     continue
+
+            if ihuvapi.ihuv_settings.download:
+                if os.path.isfile("youtube-dl.exe") and os.path.isfile("ffmpeg.exe"):
+                    print(f"Trying to download {video['contentDetails']['videoId']}..")
+                    os.system(f'{dlo}"{vId}"')
+                else:
+                    print("You have enabled 'download videos' option but I can't find the youtube downloader!"
+                          "\nGet it here: https://github.com/ytdl-org/youtube-dl\n"
+                          "Note: it will need an additional program called 'ffmpeg', just put that exe into my folder")
+                    ihuvapi.ihuv_settings.download = False
+                    input("Enter to accept and continue, ctrl+c to cancel")
+
                 print("success!\n")
 
         try:
