@@ -98,7 +98,6 @@ def get_all_uploads(plId):
     
     # loop over playlist
     def run_pl(pageToken="00"):
-        print(f"pageToken: {pageToken}")
         if pageToken == "00":
             _r = r
         else:
