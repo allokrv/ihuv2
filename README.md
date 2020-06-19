@@ -4,7 +4,7 @@ You can also download basic data, a "snippet", about every Video that's being pr
 You will need a Google Project API Key and Client Secret File, 
 the script will guide you through how to get them when you need them.
 
-Download functionality has been added, only mp4 file format so far I'm planning to add an mp3 mode as well..
+Download functionality has been added mp4 and mp3 formats are supported, enjoy
 
 ## The Google Project
 All this Key and Secret jazz is gonna be available here: https://console.developers.google.com/
