@@ -10,7 +10,7 @@ All this Key and Secret jazz is gonna be available here: https://console.develop
 
 You're gonna have to create a Projekt; Basically a few clicks and coming up with a stupid name.
 
-`Everything I'm explaining here will be prompted by the script, no need to read this if you just wanna get it set up.`
+`Everything I'm explaining from here on will be prompted by the script, no need to read this if you just wanna get it set up.`
 
 At some point the script will ask for an API Key and a "client_secret.json" both are found here:
 https://console.developers.google.com/apis/credentials ; At the top's a button "Create Credentials"
