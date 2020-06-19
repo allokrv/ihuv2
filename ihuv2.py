@@ -54,7 +54,13 @@ def get_uploads(cId):
 
 def get_all_uploads(plId):
     part = "contentDetails"
-    dlo = 'youtube-dl -f mp4 -o "results/%(uploader)s/%(id)s - %(title)s.mp4" '
+    if ihuvapi.ihuv_settings.dl_format == "mp4":
+        dlo = f'youtube-dl -f mp4 -w -o "results/%(uploader)s/%(id)s - %(title)s.mp4" '
+    elif ihuvapi.ihuv_settings.dl_format == "mp3":
+        dlo = f'youtube-dl -x --audio-format mp3 -w -o "results/%(uploader)s/%(id)s - %(title)s.mp3" '
+    else:
+        print("[ERROR] Format incompatible")
+        return False
     APIKEY = ihuvapi.get_api_key()
     print("Trying to fetch playlist")
     r = requests.get(f"https://www.googleapis.com/youtube/v3/playlistItems" +
@@ -96,7 +102,6 @@ def get_all_uploads(plId):
                               f"&playlistId={plId}" +
                               f"&pageToken={pageToken}" +
                               f"&key={APIKEY}")
-
 
         response = json.loads(_r.content)
 

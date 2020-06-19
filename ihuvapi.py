@@ -14,15 +14,26 @@ class AppSettings:
     lookup_channel_after_video = True
     get_all_channel_uploads = True
     download = False
+    dl_format = "mp4"
     mode = "skip"
 
-    def set_settings(self, single_snippet, playlist_snippet, lookup_channel, get_all, download, mode):
+    def set_settings(self, single_snippet, playlist_snippet, lookup_channel, get_all, download, dl_format, mode):
         self.get_single_video_snippet = single_snippet
         self.get_playlist_video_snippet = playlist_snippet
         self.lookup_channel_after_video = lookup_channel
         self.get_all_channel_uploads = get_all
         self.download = download
+        if dl_format in ["mp3", "mp4"]:
+            self.dl_format = dl_format
+        else:
+            return False
         self.mode = mode
+        if mode in ["skip", "like", "dislike"]:
+            self.dl_format = dl_format
+        else:
+            return False
+
+        return True
 
     # print all class vars
     def debug_print(self):
@@ -44,14 +55,19 @@ class AppSettings:
                 # parsing json data from file to _data
                 _data = json.loads(data)
             print("[SUCCESS] Applying settings..")
-            self.set_settings(self,
-                              _data['get snippet of single videos'],
-                              _data['get snippet of every video'],
-                              _data['go to channel after single video'],
-                              _data['get all uploads of channel'],
-                              _data['download videos'],
-                              _data['ratingmode'])
-            return True
+            r = self.set_settings(self,
+                                  _data['get snippet of single videos'],
+                                  _data['get snippet of every video'],
+                                  _data['go to channel after single video'],
+                                  _data['get all uploads of channel'],
+                                  _data['download videos'],
+                                  _data['download format'],
+                                  _data['ratingmode'])
+            if r:
+                return True
+            else:
+                print("settings.json is corrupted, please ensure the right parameters!")
+                return False
         else:
             print("[FATAL] Did you really delete the settings file ?!")
             return False
