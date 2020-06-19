@@ -104,8 +104,8 @@ class AppCredentials:
         else:
             print("Couldn't find a 'client_secret.json' please download, rename and put into ihuv2 folder\nYou can " +
                   "download / create a client_secret.json here: https://console.developers.google.com/apis/credentials")
-            print("At the top you should see a 'Create Credentials' button, create a Client-ID\n"
-                  "It's gonna have a long, weird name so just rename it to 'client_secret.json'\n"
+            print("At the top you should see a 'Create Credentials' button, create a Client-ID as Desktop Application\n"
+                  "Download that file, it's gonna have a long, weird name so just rename it to 'client_secret.json'\n"
                   "and put it into the main ihuv folder.")
 
             print("The Secret file is necessary for ihuv2 to work!")
