@@ -7,6 +7,7 @@ the script will guide you through how to get them when you need them.
 
 ## The Google Project
 All this Key and Secret jazz is gonna be available here: https://console.developers.google.com/
+
 You're gonna have to create a Projekt; Basically a few clicks and coming up with a stupid name.
 
 `Everything I'm explaining here will be prompted by the script, no need to read this if you just wanna get it set up.`
