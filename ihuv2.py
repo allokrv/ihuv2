@@ -12,11 +12,13 @@ import requests
 def get_video_info(vId, pl=False):
     part = "snippet"
     r = requests.get(f"https://www.googleapis.com/youtube/v3/videos?part={part}&id={vId}&key={ihuvapi.get_api_key()}")
+    response = json.loads(r.content)
     if r.status_code != 200:
         print("[WARNING] Error in api: ")
-        print(r.content)
+        print(f"{response['error']['code']}: {response['error']['message']}")
+        print("Possible Fix: go to https://console.developers.google.com/apis/library/youtube.googleapis.com "
+              "and enable the Youtube API!")
         return False
-    response = json.loads(r.content)
     dbr = jsbeautifier.beautify(json.dumps(response))
     if len(response['items']) == 0:
         print("[ERROR] Invalid Video ID passed in ihuv2.py>get_video_info")
@@ -140,13 +142,19 @@ def get_all_uploads(plId):
         except Exception:
             pass
     run_pl("00")
+    return True
 
 
 def main():
     passed_arg = sys.argv[1]
     if len(passed_arg) == 11:
         vr = get_video_info(passed_arg)
-        vr = vr['items'][0]
+        try:
+            vr = vr['items'][0]
+        except (Exception):
+            print("[CRITICAL] Error getting Video Info, did you configure your "
+                  "Google project to have Access to the Youtube API ?")
+            exit(1)
         if not vr:
             print("[FATAL] Error while getting Video")
             exit(1)

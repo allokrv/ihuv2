@@ -104,6 +104,7 @@ class AppCredentials:
         else:
             print("Couldn't find a 'client_secret.json' please download, rename and put into ihuv2 folder\nYou can " +
                   "download / create a client_secret.json here: https://console.developers.google.com/apis/credentials")
+            print("At the top you should see a 'Create Credentials' button, create a Client-ID")
             print("The Secret file is necessary for ihuv2 to work!")
             exit(1)
             return False
@@ -145,6 +146,7 @@ class AppCredentials:
             if _data[0] == "PUTyourAPIkeyHERE":
                 print("Please enter an API Key:" +
                       "\n*You can get an API key here: https://console.developers.google.com/apis/credentials")
+                print("At the top you should see a 'Create Credentials' button, create an API Key")
                 key = input("Key~")
                 if len(key) != 39:
                     print("[ERROR] Invalid Key entered, you can specify it in the \"KEYS\" file in your ihuv2 folder "

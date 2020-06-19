@@ -1,5 +1,5 @@
-{	"get snippet of single videos": 	false, 
-	"get snippet of every video": 		true, 
+{	"get snippet of single videos": 	false,
+	"get snippet of every video": 		false,
 	"go to channel after single video": true, 
 	"get all uploads of channel": 		true,
 	"ratingmode":						"skip",
