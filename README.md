@@ -7,7 +7,9 @@ the script will guide you through how to get them when you need them.
 Download functionality has been added mp4 and mp3 formats are supported, enjoy
 
 ## Usage
-It's rather simple you just run the Script with a Video-ID or a Channel-ID as argument
+Before using, install the requirements with `pip install -r requirements.txt`
+
+The rest's rather simple you just run the Script with a Video-ID or a Channel-ID as argument
 
 Example: "`python ihuv2.py 6E5m_XtCX3c`" (from: https://www.youtube.com/watch?v=6E5m_XtCX3c)
 
